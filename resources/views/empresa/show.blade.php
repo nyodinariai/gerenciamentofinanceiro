@@ -32,19 +32,24 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <strong>Razão Social</strong>: {{$empresa->razao_social}} <br>
-                                <strong>CNPJ/CPF</strong>: {{$empresa->documento}}<br>
+                                <strong>CNPJ/CPF</strong>: 
+                                    @if(strlen($empresa->documento) === 11)
+                                        {{ mascara($empresa->documento, '###.###.###-##')}}
+                                    @else
+                                        {{ mascara($empresa->documento, '##.###.###/####-##')}}
+                                    @endif
+                                <br>
                                 <strong>IE/RG</strong>: {{$empresa->ie_rg}}<br>
                                 <strong>Observações</strong>: {{$empresa->observacao}}
                             </div>
                             <div class="col-sm-6">
                                 <address>
                                     {{ $empresa->logradouro}}, {{ $empresa->bairro}} <br>
-                                    {{ $empresa->cidade}}, {{ $empresa->estado}} - {{ $empresa->cep}} <br>
+                                    {{ $empresa->cidade}}, {{ $empresa->estado}} - {{ mascara($empresa->cep, '##.###-###')}} <br>
                                     <strong>Nome Contato:</strong> {{ $empresa->nome_contato}} <br>
-                                    <strong>Celular: </strong>{{ $empresa->celular}} <br>
-                                    <strong>Telefone: </strong>{{ $empresa->telefone}} <br>
+                                    <strong>Celular: </strong>{{ mascara($empresa->celular, '(##) # ####-####') }} <br>
                                     <strong>Email: </strong>{{ $empresa->email}} <br>
-                                    <strong>Telefone: </strong> {{ $empresa->telefone}}
+                                    <strong>Telefone: </strong>{{ mascara($empresa->telefone, '(##) ####-####')}} <br>
                                 </address>
                             </div>
                         </div>
@@ -56,7 +61,7 @@
 
         <div class="row">
             <div class="col-12">
-                <form action="{{ route('empresas.destroy')}}?tipo={{ $empresa->tipo}}" method="post">
+                <form action="{{ route('empresas.destroy', $empresa)}}?tipo={{ $empresa->tipo}}" method="post">
                     @method('DELETE')
                     @csrf
 

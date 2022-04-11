@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\EmpresaRequest;
 use App\Models\Empresa;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Http\Requests\EmpresaRequest;
 
 class EmpresaController extends Controller
 {
@@ -13,14 +15,12 @@ class EmpresaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request) : View
     {
 
         $tipo = $request->tipo;
 
-        if($tipo !== 'cliente' && $tipo !== 'fornecedor'){
-            return \abort(404);
-        }
+        $this->validaTipo($tipo);
 
         $empresas = Empresa::todasPorTipo($tipo);
 
@@ -32,14 +32,12 @@ class EmpresaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request) : View
     {
 
         $tipo = $request->tipo;
 
-        if($tipo !== 'cliente' && $tipo !== 'fornecedor'){
-            return \abort(404);
-        }
+        $this->validaTipo($tipo);
 
         return view('empresa.create')->with('tipo', $tipo);
     }
@@ -50,11 +48,11 @@ class EmpresaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EmpresaRequest $request)
+    public function store(EmpresaRequest $request) : Response
     {
-        $empresa = Empresa::create($request->except("_token"));
+        $empresa = Empresa::create($request->all());
 
-        return redirect()->route('empresa.show', $empresa->id);
+        return redirect()->route('empresas.show', $empresa->id);
     }
 
     /**
@@ -63,11 +61,10 @@ class EmpresaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Empresa $empresa)
+    public function show(Empresa $empresa) : View
     {
-        $dados = $empresa;
 
-        return view('empresa.show')->with('empresa', $dados);
+        return view('empresa.show')->with('empresa', $empresa);
     }
 
     /**
@@ -76,10 +73,10 @@ class EmpresaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Empresa $empresa)
+    public function edit(Empresa $empresa) : View
     {
-        $dados = $empresa;
-        return view('empresa.edit')->with('empresa', $dados);
+
+        return view('empresa.edit')->with('empresa', $empresa);
     }
 
     /**
@@ -93,25 +90,36 @@ class EmpresaController extends Controller
     {
         $empresa->update($request->all());
 
-        return redirect()->route('empresas.show', $empresa->id);
+        return redirect()->route('empresas.show')->with('empresa', $empresa);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Deleta uma empresa
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Empresa $empresa
+     * @param Request $request
+     * @return Response
      */
-    public function destroy(EmpresaRequest $empresa, Request $request)
+    public function destroy(Empresa $empresa, Request $request) : Response
     {
 
-        $tipo = $request->tipo;
+        $this->validaTipo($request->tipo);
 
-        if($tipo !== 'cliente' && $tipo !== 'fornecedor'){
-            return \abort(404);
-        }
         $empresa->delete();
 
-        return redirect()->route('empresas.index', ['tipo'=>$tipo]);
+        return redirect()->route('empresas.index', ['tipo'=>$request->tipo]);
+    }
+
+    /**
+     * Valida se é um cliente ou um fornecedor
+     *
+     * @param string $tipo
+     * @return void
+     */
+    private function validaTipo(string $tipo) : void
+    {
+        if($tipo !== 'cliente' && $tipo !== 'fornecedor'){
+            abort(404);
+        }
     }
 }
