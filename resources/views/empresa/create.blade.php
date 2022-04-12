@@ -26,7 +26,7 @@
 
                     <div class="card-body">
                         <form action="{{ route('empresas.store')}}" method="post">
-<input type="hidden" name="tipo" value="{{ $tipo }}">
+                            <input type="hidden" name="tipo" value="{{ $tipo }}">
                             @include('empresa.form')
                         </form>
                     </div>

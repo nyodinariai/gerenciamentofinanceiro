@@ -307,6 +307,24 @@ return [
             ],
         ],
     ],
+        [
+        'text'    => 'Produtos',
+        'icon' => 'fas fa-money-check-alt',
+        'submenu' => [
+            [
+                'text'  => 'Novo Produto',
+                'route' => 'produtos.create',
+                'icon'  => 'fas  fa-dollar-sign',
+                'shift' => 'ml-4',
+            ],
+            [
+                'text'  => 'Lista de produtos',
+                'route' => 'produtos.index',
+                'icon'  => 'fas  fa-chart-pie',
+                'shift' => 'ml-4',
+            ],
+        ],
+    ],
 ],
     /*
     |--------------------------------------------------------------------------
