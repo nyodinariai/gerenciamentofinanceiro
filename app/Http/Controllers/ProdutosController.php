@@ -54,7 +54,7 @@ class ProdutosController extends Controller
 			'nome' => 'required|max:255'
 		]);
         $requestData = $request->all();
-        
+
         Produto::create($requestData);
 
         return redirect('produtos')->with('flash_message', 'Produto added!');
@@ -102,7 +102,7 @@ class ProdutosController extends Controller
 			'nome' => 'required|max:255'
 		]);
         $requestData = $request->all();
-        
+
         $produto = Produto::findOrFail($id);
         $produto->update($requestData);
 
@@ -112,13 +112,12 @@ class ProdutosController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param Produto $produto
+     * @return void
      */
-    public function destroy($id)
+    public function destroy(Produto $produto)
     {
-        Produto::destroy($id);
+        $produto->delete();
 
         return redirect('produtos')->with('flash_message', 'Produto deleted!');
     }

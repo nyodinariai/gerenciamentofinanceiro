@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'produtos')
+@section('title', 'Produtos')
     @section('mainTitle')
         <h1>Listagem de Produto</h1>
     @stop

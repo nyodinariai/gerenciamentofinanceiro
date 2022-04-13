@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'usermenu_enabled' => true,
+    'usermenu_enabled' => false,
     'usermenu_header' => false,
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => false,
@@ -230,26 +230,24 @@ return [
         // Sidebar items:
         [
             'text' => 'Dashboard',
+            'icon' => '',
             'route' => 'home'
         ],
         [
         'text' => 'account_settings',
+        'icon' => '',
         'submenu'=> [
         [
             'text' => 'profile',
-            'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
+
             'text' => 'logout',
             'route' => 'logout',
-            'icon' => 'fas fa-fw fa-lock'
-        ]
+            'icon' => 'fas fa-fw fa-lock',
+
+        ],
     ],
 ],
     [
@@ -295,13 +293,13 @@ return [
         'submenu' => [
             [
                 'text'  => 'Novo Lançamento',
-                'url' => '#',
+                'route' => 'movimentos-financeiros.create',
                 'icon'  => 'fas  fa-dollar-sign',
                 'shift' => 'ml-4',
             ],
             [
                 'text'  => 'Relatório Financeiro',
-                'url' => '#',
+                'url' => 'movimentos-financeiros.index',
                 'icon'  => 'fas  fa-chart-pie',
                 'shift' => 'ml-4',
             ],
@@ -309,12 +307,12 @@ return [
     ],
         [
         'text'    => 'Produtos',
-        'icon' => 'fas fa-money-check-alt',
+        'icon' => 'fas fa-boxes',
         'submenu' => [
             [
                 'text'  => 'Novo Produto',
                 'route' => 'produtos.create',
-                'icon'  => 'fas  fa-dollar-sign',
+                'icon'  => 'fas fa-box',
                 'shift' => 'ml-4',
             ],
             [
@@ -325,6 +323,24 @@ return [
             ],
         ],
     ],
+    [
+        'text'    => 'Usuários',
+        'icon' => 'fas fa-users',
+        'submenu' => [
+            [
+                'text'  => 'Novo Usuário',
+                'route' => 'users.create',
+                'icon'  => 'fas fa-user-plus',
+                'shift' => 'ml-4',
+            ],
+            [
+                'text'  => 'Lista de produtos',
+                'route' => 'users.index',
+                'icon'  => 'fas  fa-user',
+                'shift' => 'ml-4',
+            ],
+        ],
+        ],
 ],
     /*
     |--------------------------------------------------------------------------

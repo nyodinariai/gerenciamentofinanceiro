@@ -1,15 +1,29 @@
 @extends('layouts.app')
 
+@section('title', '%%modelName%%')
+
+@section('mainTitle')
+        <h1>Novo %%modelName%%</h1>
+    @stop
+    @section('breadcrumb')
+        <li class="breadcrumb-item">
+            <a href="{{ url('/%%routeGroup%%%%viewName%%') }}">Listagem de %%modelName%%</a>
+        </li>
+
+        <li class="breadcrumb-item">
+            <a href="{{ url('/%%routeGroup%%%%viewName%%/create')}}">Editar %%modelName%%</a>
+        </li>
+    @stop
+
 @section('content')
     <div class="container">
         <div class="row">
-            @include('admin.sidebar')
 
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-header">Edit %%modelName%% #{{ $%%crudNameSingular%%->%%primaryKey%% }}</div>
                     <div class="card-body">
-                        <a href="{{ url('/%%routeGroup%%%%viewName%%') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/%%routeGroup%%%%viewName%%') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar</button></a>
                         <br />
                         <br />
 

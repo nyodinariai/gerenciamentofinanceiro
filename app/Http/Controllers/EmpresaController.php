@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Empresa;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Http\Requests\EmpresaRequest;
 
 class EmpresaController extends Controller
@@ -48,7 +47,7 @@ class EmpresaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EmpresaRequest $request) : Response
+    public function store(EmpresaRequest $request)
     {
         $empresa = Empresa::create($request->all());
 
@@ -100,7 +99,7 @@ class EmpresaController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function destroy(Empresa $empresa, Request $request) : Response
+    public function destroy(Empresa $empresa, Request $request)
     {
 
         $this->validaTipo($request->tipo);
