@@ -13,6 +13,20 @@ class Empresa extends Model
     use HasFactory;
 
     /**
+     * Define dados para Serialização
+     *
+     * @var array
+     */
+    protected $visible = ['id', 'text'];
+
+    /**
+     * Anexa dados para Serialização
+     *
+     * @var array
+     */
+    protected $appends = ['text'];
+
+    /**
      *  The attributes that are mass assignable
      *
      * @var array
@@ -45,5 +59,27 @@ class Empresa extends Model
 
         return self::where('tipo', $tipo)->paginate($quantidade);
 
+    }
+
+    public static function buscarPorNomeTipo(string $nome, string $tipo){
+        
+        $nome = '%' . $nome . '%';
+        
+        return self::where('nome', 'LIKE', $nome)
+                    ->where('tipo', $tipo)
+                    ->get();
+    }
+
+    /**
+     * Cria o acessor chamado text para serialização
+     *
+     * @return void
+     */
+    public function getTextAttribute(): string {
+        return sprintf(
+            '%s (%s)',
+            $this->attributes['nome'],
+            $this->attributes['razao_social']
+        );
     }
 }

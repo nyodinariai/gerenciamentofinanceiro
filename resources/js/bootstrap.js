@@ -41,3 +41,7 @@ require('../adminLTE/plugins/jquery-mask/jquery.mask');
 
 //mascaras
 require('./mascaras')
+
+//plugin select2
+require('../../public/vendor/select2/js/select2');
+require('../js/selects')

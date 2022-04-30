@@ -5,6 +5,7 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MovimentosFinanceirosController;
 use App\Http\Controllers\ProdutosController;
+use App\Http\Controllers\Selects\EmpresaNomeTipo;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,8 @@ Route::resource('produtos', ProdutosController::class);
 Route::resource('users', UsersController::class);
 
 Route::resource('movimentos-financeiros', MovimentosFinanceirosController::class);
+
+Route::post('/empresas/buscar-por/nome', EmpresaNomeTipo::class);
 
 });
 

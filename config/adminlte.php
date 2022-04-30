@@ -299,7 +299,7 @@ return [
             ],
             [
                 'text'  => 'Relatório Financeiro',
-                'url' => 'movimentos-financeiros.index',
+                'route' => 'movimentos-financeiros.index',
                 'icon'  => 'fas  fa-chart-pie',
                 'shift' => 'ml-4',
             ],
