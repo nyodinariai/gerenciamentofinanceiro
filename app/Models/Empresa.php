@@ -26,6 +26,10 @@ class Empresa extends Model
      */
     protected $appends = ['text'];
 
+    public function movimentosEstoque(){
+        return $this->hasMany(MovimentosEstoque::class);
+    }
+
     /**
      *  The attributes that are mass assignable
      *

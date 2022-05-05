@@ -14,11 +14,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($empresa->movimentosEstoque as $movimentoEstoque)
                         <tr>
-                            <td>Papel X1</td>
-                            <td>1.100,00</td>
-                            <td>R$ 0,50</td>
-                            <td>R$ 550,00</td>
+                            <td>{{ $movimentoEstoque->produto->nome }}</td>
+                            <td>{{ $movimentoEstoque->quantidade }}</td>
+                            <td>R${{ numero_iso_para_br($movimentoEstoque->valor)}}</td>
+                            <td>R${{ numero_iso_para_br($movimentoEstoque->valor * $movimentoEstoque->quantidade)}}</td>
                             <td>
                                 <form method="POST" action="{{ url('/' . '/' ) }}" accept-charset="UTF-8" style="display:inline">
                                     {{ method_field('DELETE') }}
@@ -27,6 +28,7 @@
                                 </form>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

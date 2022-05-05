@@ -60,8 +60,11 @@ class EmpresaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Empresa $empresa) : View
+    public function show(int $id) : View
     {
+
+        $empresa = Empresa::with(['movimentosEstoque', 'movimentosEstoque.produto'])
+                            ->findOrfail($id);
 
         return view('empresa.show')->with('empresa', $empresa);
     }
