@@ -27,5 +27,14 @@ class MovimentosFinanceiro extends Model
      */
     protected $fillable = ['descricao', 'valor', 'data', 'tipo', 'empresa_id'];
 
-    
+    public function empresa(){
+        return $this->belongsTo('App\Models\Empresa');
+    }
+
+    public static function buscaPorIntervalo(string $inicio, string $fim, int $quantidade){
+        return self::whereBetween('data', [$inicio, $fim])
+            ->with('empresa')
+            ->paginate($quantidade);
+    }
+
 }

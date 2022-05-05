@@ -32,7 +32,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <strong>Razão Social</strong>: {{$empresa->razao_social}} <br>
-                                <strong>CNPJ/CPF</strong>: 
+                                <strong>CNPJ/CPF</strong>:
                                     @if(strlen($empresa->documento) === 11)
                                         {{ mascara($empresa->documento, '###.###.###-##')}}
                                     @else
@@ -57,6 +57,10 @@
 
                 </div>
             </div>
+        </div>
+
+        <div class="row">
+            @include('empresa.partials.movimento_estoque')
         </div>
 
         <div class="row">

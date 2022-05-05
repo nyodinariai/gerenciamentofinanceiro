@@ -25,6 +25,11 @@
 <div class="form-group {{ $errors->has('empresa_id') ? 'has-error' : ''}}">
     <label for="empresa_id" class="control-label">{{ 'Empresa Id' }}</label>
     <select class="form-control" name="empresa_id" type="number" id="empresa-ajax" required style="width: 100%">
+        @if (isset($movimentosfinanceiro))
+            <option value="{{ $movimentosfinanceiro->empresa_id }}">
+                {{ $movimentosfinanceiro->empresa->nome}} ({{ $movimentosfinanceiro->empresa->razao_social }})
+            </option>
+        @endif
     </select>
      {!! $errors->first('empresa_id', '<p class="help-block">:message</p>') !!}
 </div>
