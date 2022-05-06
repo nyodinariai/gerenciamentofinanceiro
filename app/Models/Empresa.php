@@ -65,6 +65,14 @@ class Empresa extends Model
 
     }
 
+
+    /**
+     * Buscar por nome e tipo
+     *
+     * @param string $nome
+     * @param string $tipo
+     * @return void
+     */
     public static function buscarPorNomeTipo(string $nome, string $tipo){
         
         $nome = '%' . $nome . '%';
@@ -72,6 +80,14 @@ class Empresa extends Model
         return self::where('nome', 'LIKE', $nome)
                     ->where('tipo', $tipo)
                     ->get();
+    }
+
+    public static function buscaPorId(int $id){
+        return self::with(['movimentosEstoque' => function($query){
+            $query->take(5);
+        }, 
+        'movimentosEstoque.produto'])
+                            ->findOrfail($id);
     }
 
     /**

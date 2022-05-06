@@ -1,12 +1,14 @@
 <div class="col-md-12">
 <div class="card">
-    <div class="card-header">Últimos Lançamentos</div>
+    <div class="card-header">Últimos Movimentos de Estoque</div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
                             <th>Produto</th>
+                            <th>Data</th>
+                            <th>Tipo</th>
                             <th>Quantidade em KG</th>
                             <th>Valor por KG</th>
                             <th>Total</th>
@@ -17,11 +19,13 @@
                         @foreach($empresa->movimentosEstoque as $movimentoEstoque)
                         <tr>
                             <td>{{ $movimentoEstoque->produto->nome }}</td>
+                            <td>{{ data_iso_para_br($movimentoEstoque->created_at) }}</td>
+                            <td>{{ ucfirst($movimentoEstoque->tipo) }}</td>
                             <td>{{ $movimentoEstoque->quantidade }}</td>
                             <td>R${{ numero_iso_para_br($movimentoEstoque->valor)}}</td>
                             <td>R${{ numero_iso_para_br($movimentoEstoque->valor * $movimentoEstoque->quantidade)}}</td>
                             <td>
-                                <form method="POST" action="{{ url('/' . '/' ) }}" accept-charset="UTF-8" style="display:inline">
+                                <form method="POST" action="{{ route('movimentos_estoque.destroy', $movimentoEstoque) }}" accept-charset="UTF-8" style="display:inline">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
                                     <button type="submit" class="btn btn-danger btn-sm" title="Apagar Movimento" onclick="return confirm(&quot;Tem certeza que deseja apagar esse movimento?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Apagar</button>
@@ -33,13 +37,16 @@
                 </table>
             </div>
             <hr>
-            <form method="GET">
+            <form method="POST" action="{{ route('movimentos_estoque.store') }}">
+                @csrf
+                <input type="hidden" name="empresa_id" value="{{ $empresa->id }}">
+                <input type="hidden" name="tipo" value="{{ $empresa->tipo === 'fornecedor' ? 'entrada' : 'saida' }}">
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label class="control-label" for="produto">Produto</label>
+                            <label class="control-label" for="produto_id">Produto</label>
                             <div class="input-group">
-                                <select id="produto-ajax" name="produto" type="text" class="form-control"></select>
+                                <select id="produto-ajax" name="produto_id" type="text" class="form-control" style="width: 100%"></select>
                             </div>
                         </div>
                     </div>
