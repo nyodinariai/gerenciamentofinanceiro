@@ -25,14 +25,18 @@ class MovimentosFinanceiro extends Model
      *
      * @var array
      */
-    protected $fillable = ['descricao', 'valor', 'data', 'tipo', 'empresa_id'];
+    protected $fillable = ['descricao', 'valor', 'tipo', 'empresa_id'];
 
     public function empresa(){
         return $this->belongsTo('App\Models\Empresa');
     }
 
+    public function saldo(){
+        return $this->morphOne(Saldo::class, 'movimento');
+    }
+
     public static function buscaPorIntervalo(string $inicio, string $fim, int $quantidade){
-        return self::whereBetween('data', [$inicio, $fim])
+        return self::whereBetween('created_at', [$inicio, $fim])
             ->with('empresa')
             ->paginate($quantidade);
     }

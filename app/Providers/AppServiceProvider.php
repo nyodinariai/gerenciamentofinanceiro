@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Empresa;
 use App\Models\MovimentosEstoque;
+use App\Models\MovimentosFinanceiro;
+use App\Observers\EmpresaObserver;
 use App\Observers\MovimentosEstoqueObserver;
+use App\Observers\MovimentosFinanceiroObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,5 +32,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
         MovimentosEstoque::observe(MovimentosEstoqueObserver::class);
+        MovimentosFinanceiro::observe(MovimentosFinanceiroObserver::class);
+    
     }
 }

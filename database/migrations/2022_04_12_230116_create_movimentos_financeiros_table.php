@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateMovimentosFinanceirosTable extends Migration
 {
@@ -17,7 +18,6 @@ class CreateMovimentosFinanceirosTable extends Migration
             $table->timestamps();
             $table->string('descricao')->nullable();
             $table->integer('valor')->nullable();
-            $table->date('data')->nullable();
             $table->string('tipo');
             $table->bigInteger('empresa_id')->unsigned();
             });

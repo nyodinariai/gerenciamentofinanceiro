@@ -39,7 +39,7 @@ Route::resource('produtos', ProdutosController::class);
 
 Route::resource('users', UsersController::class);
 
-Route::resource('movimentos-financeiros', MovimentosFinanceirosController::class);
+Route::resource('movimentos-financeiros', MovimentosFinanceirosController::class)->except(['edit', 'update']);
 
 Route::post('/empresas/buscar-por/nome', EmpresaNomeTipo::class);
 

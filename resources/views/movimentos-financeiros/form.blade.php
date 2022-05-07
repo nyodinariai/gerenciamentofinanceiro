@@ -8,11 +8,6 @@
     <input class="form-control money" name="valor" type="text" id="valor" value="{{ isset($movimentosfinanceiro->valor) ? $movimentosfinanceiro->valor : ''}}" >
     {!! $errors->first('valor', '<p class="help-block">:message</p>') !!}
 </div>
-<div class="form-group {{ $errors->has('data') ? 'has-error' : ''}}">
-    <label for="data" class="control-label">{{ 'Data' }}</label>
-    <input class="form-control date" name="data" type="text" id="data" value="{{ isset($movimentosfinanceiro->data) ? $movimentosfinanceiro->data : ''}}" required>
-    {!! $errors->first('data', '<p class="help-block">:message</p>') !!}
-</div>
 <div class="form-group {{ $errors->has('tipo') ? 'has-error' : ''}}">
     <label for="tipo" class="control-label">{{ 'Tipo' }}</label>
     <select name="tipo" class="form-control" id="tipo" required>

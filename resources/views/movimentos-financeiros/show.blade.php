@@ -23,10 +23,11 @@
                     <div class="card-header">MovimentosFinanceiro {{ $movimentosfinanceiro->id }}</div>
                     <div class="card-body">
 
-                        <a href="{{ url('/movimentos-financeiros') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar</button></a>
-                        <a href="{{ url('/movimentos-financeiros/' . $movimentosfinanceiro->id . '/edit') }}" title="Edit MovimentosFinanceiro"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</button></a>
+                        <a href="{{ url('/movimentos-financeiros') }}" title="Back">
+                            <button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar</button>
+                        </a>
 
-                        <form method="POST" action="{{ url('movimentosfinanceiros' . '/' . $movimentosfinanceiro->id) }}" accept-charset="UTF-8" style="display:inline">
+                        <form method="POST" action="{{ route('movimentos-financeiros.destroy', $movimentosfinanceiro) }}" accept-charset="UTF-8" style="display:inline">
                             {{ method_field('DELETE') }}
                             {{ csrf_field() }}
                             <button type="submit" class="btn btn-danger btn-sm" title="Deletar MovimentosFinanceiro" onclick="return confirm(&quot;Tem certeza que deseja apagar?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Deletar</button>
@@ -61,7 +62,7 @@
                                     </tr>
                                     <tr>
                                         <th> Data </th>
-                                        <td> {{ data_iso_para_br($movimentosfinanceiro->data) }} </td>
+                                        <td> {{ data_iso_para_br($movimentosfinanceiro->created_at) }} </td>
                                     </tr>
 
                                 </tbody>

@@ -6,6 +6,7 @@ use App\Models\Empresa;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Requests\EmpresaRequest;
+use App\Models\Saldo;
 
 class EmpresaController extends Controller
 {
@@ -65,7 +66,10 @@ class EmpresaController extends Controller
 
         $empresa = Empresa::buscaPorId($id);
 
-        return view('empresa.show')->with('empresa', $empresa);
+        return view('empresa.show', [
+            'empresa' => Empresa::buscaPorId($id),
+            'saldo' => Saldo::ultimoDaEmpresa($id)
+        ]);
     }
 
     /**
