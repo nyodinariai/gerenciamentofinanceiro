@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MovimentoEstoqueController;
 use App\Http\Controllers\MovimentosFinanceirosController;
 use App\Http\Controllers\ProdutosController;
+use App\Http\Controllers\Relatorios\SaldoEmpresa;
 use App\Http\Controllers\Selects\EmpresaNomeTipo;
 use App\Http\Controllers\Selects\ProdutoPorNome;
 use App\Http\Controllers\UsersController;
@@ -41,9 +42,12 @@ Route::resource('users', UsersController::class);
 
 Route::resource('movimentos-financeiros', MovimentosFinanceirosController::class)->except(['edit', 'update']);
 
+Route::post('/empresas/buscar-por/nome/tipo', EmpresaNomeTipo::class);
+
 Route::post('/empresas/buscar-por/nome', EmpresaNomeTipo::class);
 
 Route::post('/produto/buscar-por/nome', ProdutoPorNome::class);
+Route::get('/empresas/relatorio/saldo/{empresa}', SaldoEmpresa::class)->name('empresas.relatorios.saldo');
 
 Route::delete('/movimentos_estoque/{id}', [MovimentoEstoqueController::class, 'destroy'])->name('movimentos_estoque.destroy');
 Route::post('/movimentos_estoque', [MovimentoEstoqueController::class, 'store'])->name('movimentos_estoque.store');

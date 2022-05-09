@@ -56,12 +56,19 @@ class Empresa extends Model
          * Retorna empresa por tipo
          *
          * @param string $tipo
+         * @param string $busca
          * @param integer $quantidade
          * @return AbstractPaginator
          */
-    public static function todasPorTipo(string $tipo, int $quantidade=10) : AbstractPaginator{
+    public static function todasPorTipo(string $tipo, string $busca, int $quantidade=10) : AbstractPaginator{
 
-        return self::where('tipo', $tipo)->paginate($quantidade);
+        return self::where('tipo', $tipo)
+                    ->where(function($q) use($busca) {
+                        $q->orWhere('nome', 'LIKE', "%$busca%")
+                            ->orWhere('razao_social', 'LIKE', "%$busca%")
+                            ->orWhere('nome_contato', 'LIKE', "%$busca%");
+                    })
+                    ->paginate($quantidade);
 
     }
 
@@ -74,20 +81,35 @@ class Empresa extends Model
      * @return void
      */
     public static function buscarPorNomeTipo(string $nome, string $tipo){
-        
+
         $nome = '%' . $nome . '%';
-        
+
         return self::where('nome', 'LIKE', $nome)
                     ->where('tipo', $tipo)
                     ->get();
     }
 
+    /**
+     * Buscar por nome e tipo
+     *
+     * @param string $nome
+     * @return void
+     */
+    public static function buscarPorNome(string $nome){
+
+        $nome = '%' . $nome . '%';
+
+        return self::where('nome', 'LIKE', $nome)->get();
+    }
+
     public static function buscaPorId(int $id){
         return self::with(['movimentosEstoque' => function($query){
             $query->take(5);
-        }, 
-        'movimentosEstoque.produto'])
-                            ->findOrfail($id);
+        },
+        'movimentosEstoque.produto' => function ($q){
+            $q->withTrashed();
+        }])
+        ->findOrfail($id);
     }
 
     /**

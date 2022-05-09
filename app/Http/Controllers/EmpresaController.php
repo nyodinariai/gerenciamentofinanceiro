@@ -22,7 +22,9 @@ class EmpresaController extends Controller
 
         $this->validaTipo($tipo);
 
-        $empresas = Empresa::todasPorTipo($tipo);
+        $busca = $request->search ?? '';
+
+        $empresas = Empresa::todasPorTipo($tipo, $busca);
 
         return view('empresa.index')->with(['empresas' => $empresas, 'tipo' => $tipo]);
     }
@@ -63,8 +65,6 @@ class EmpresaController extends Controller
      */
     public function show(int $id) : View
     {
-
-        $empresa = Empresa::buscaPorId($id);
 
         return view('empresa.show', [
             'empresa' => Empresa::buscaPorId($id),

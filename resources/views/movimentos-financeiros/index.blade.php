@@ -63,7 +63,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td><span class="badge badge-{{ $item->tipo === 'entrada' ? 'success' : 'danger'}}">{{ ucfirst($item->tipo)}}</span></td>
-                                        <td>{{ $item->empresa->nome}} ({{$item->empresa->razao_social}})</td>
+                                        <td><a href="{{ route('empresas.show', $item->empresa)}}">{{ $item->empresa->nome}} ({{$item->empresa->razao_social}})</a></td>
                                         <td>{{ $item->descricao }}</td>
                                         <td>R$ {{ numero_iso_para_br($item->valor) }}</td>
                                         <td>{{ data_iso_para_br($item->created_at) }}</td>

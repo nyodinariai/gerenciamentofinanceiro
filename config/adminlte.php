@@ -334,7 +334,7 @@ return [
                 'shift' => 'ml-4',
             ],
             [
-                'text'  => 'Lista de produtos',
+                'text'  => 'Lista de Usuários',
                 'route' => 'users.index',
                 'icon'  => 'fas  fa-user',
                 'shift' => 'ml-4',

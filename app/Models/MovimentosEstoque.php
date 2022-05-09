@@ -24,8 +24,10 @@ class MovimentosEstoque extends Model
         'empresa_id'
     ];
 
+    protected $with = ['produto'];
+
     public function produto(){
-        return $this->belongsTo(Produto::class);
+        return $this->belongsTo(Produto::class)->withTrashed();
     }
 
     public function saldo(){
